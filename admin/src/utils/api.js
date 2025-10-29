@@ -14,10 +14,10 @@ export const fetchDataFromApi = async (url) => {
     const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
         
     // For debugging purposes - show what URL is being called
-    console.log(`API Request to: ${baseUrl + url}`);
+    console.log(`API Request to: ${'https://rich-agrisupply-backend.vercel.app' + url}`);
         
         // Make the request
-        const { data } = await axios.get(baseUrl + url, { headers })
+        const { data } = await axios.get('https://rich-agrisupply-backend.vercel.app' + url, { headers })
         
         // For reports endpoints, ensure proper response format
         if (url.includes('/api/reports/')) {
@@ -52,7 +52,7 @@ export const fetchDataFromApi = async (url) => {
 
 export const uploadImage = async (url, formData) => {
     const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
-    const { res } = await axios.post(baseUrl + url , formData)
+    const { res } = await axios.post('https://rich-agrisupply-backend.vercel.app' + url , formData)
     return res;
 }
 
@@ -62,7 +62,7 @@ export const postData = async (url, formData) => {
         const currentToken = localStorage.getItem("token");
         
     const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
-    const response = await fetch(baseUrl + url, {
+    const response = await fetch('https://rich-agrisupply-backend.vercel.app' + url, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${currentToken}`,

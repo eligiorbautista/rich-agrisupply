@@ -14,7 +14,7 @@ const params = {
 
 export const fetchDataFromApi = async (url) => {
     try {
-        const endpoint = `${API_BASE_URL}${url}`;
+        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
         const { data } = await axios.get(endpoint, params)
         return data;
     } catch (error) {
@@ -26,7 +26,7 @@ export const fetchDataFromApi = async (url) => {
 
 export const uploadImage = async (url, formData) => {
     try {
-        const endpoint = `${API_BASE_URL}${url}`;
+        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
         const { data } = await axios.post(endpoint, formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -43,7 +43,7 @@ export const uploadImage = async (url, formData) => {
 export const postData = async (url, formData) => {
 
     try {
-        const endpoint = `${API_BASE_URL}${url}`;
+        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
@@ -88,7 +88,7 @@ export const postData = async (url, formData) => {
 
 export const editData = async (url, updatedData) => {
     try {
-        const endpoint = `${API_BASE_URL}${url}`;
+        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
         const response = await axios.put(
             endpoint,
             updatedData,
@@ -107,14 +107,14 @@ export const editData = async (url, updatedData) => {
 }
 
 export const deleteData = async (url ) => {
-    const endpoint = `${API_BASE_URL}${url}`;
+    const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
     const { res } = await axios.delete(endpoint, params)
     return res;
 }
 
 
 export const deleteImages = async (url,image ) => {
-    const endpoint = `${API_BASE_URL}${url}`;
+    const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
     const { res } = await axios.delete(endpoint, image);
     return res;
 }
@@ -125,7 +125,7 @@ export const resendOtp = async (url) => {
     try {
         const token = localStorage.getItem("token");
 
-        const endpoint = `${API_BASE_URL}${url}`;
+        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
         const { data } = await axios.post(endpoint, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`,
