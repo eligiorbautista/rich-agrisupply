@@ -17,27 +17,34 @@ const allowedOrigins = [
     'http://localhost:3001',
     'http://localhost:3002',
     'http://localhost:3006',
-    'https://rich-agrisupply-client.vercel.app/',
-    'https://rich-agrisupply-admin.vercel.app/',
-    'https://rich-agrisupply-client.vercel.app/*',
-    'https://rich-agrisupply-admin.vercel.app/*',
-    'https://rich-agrisupply-client.vercel.app/**',
-    'https://rich-agrisupply-admin.vercel.app/**',
+    'https://rich-agrisupply-client.vercel.app',
+    'https://rich-agrisupply-admin.vercel.app',
 ];
 
 app.use(cors({
     origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
+        
+        // Check if origin is in allowed list
         if (allowedOrigins.includes(origin)) {
             return callback(null, true);
         }
+        
+        // For development, allow all origins
+        if (process.env.NODE_ENV !== 'production') {
+            return callback(null, true);
+        }
+        
         return callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
 }));
-app.options('*', cors());
 
 //middleware
 app.use(bodyParser.json());
