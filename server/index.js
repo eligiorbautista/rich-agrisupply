@@ -59,7 +59,24 @@ const chatRoutes = require('./routes/chat.js');
 const reportsRoutes = require('./routes/reports.js');
 
 app.get('/', (req, res) => {
-    res.send('This backend is running perfectly fine.');
+    const pkg = require('./package.json');
+    const dbState = mongoose.connection.readyState; // 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
+    const isDbConnected = dbState === 1;
+
+    res.status(200).json({
+        status: 'ok',
+        service: pkg.name || 'backend',
+        version: pkg.version,
+        message: 'Backend is up and responding.',
+        uptimeSeconds: Math.floor(process.uptime()),
+        timestamp: new Date().toISOString(),
+        port: process.env.PORT,
+        environment: process.env.NODE_ENV || 'development',
+        database: {
+            connected: isDbConnected,
+            state: dbState
+        }
+    });
 });
 
 app.use("/api/user", userRoutes);
