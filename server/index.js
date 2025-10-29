@@ -19,6 +19,7 @@ const allowedOrigins = [
     'http://localhost:3006',
     'https://rich-agrisupply-client.vercel.app',
     'https://rich-agrisupply-admin.vercel.app',
+    'https://ras.caps-hub.com', 'https://ras-a.caps-hub.com',
 ];
 
 app.use(cors({
