@@ -1,0 +1,86 @@
+/* Print styles for Orders page */
+@media print {
+  /* Hide non-printable elements */
+  .breadcrumbs_,
+  .close_,
+  button,
+  select,
+  .MuiTablePagination-root,
+  .cursor,
+  .productModal,
+  .riderModal {
+    display: none !important;
+  }
+
+  /* Show full table */
+  .MuiTableContainer-root {
+    max-height: none !important;
+  }
+
+  /* Reset table borders */
+  .MuiTableCell-root {
+    border: 1px solid #ddd !important;
+  }
+
+  /* Ensure white background */
+  body {
+    background: white !important;
+  }
+
+  /* Format the orders table nicely */
+  .card {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  /* Add page header */
+  .print-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .print-header h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+
+  .print-header p {
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* Force page breaks between rows if needed */
+  tr {
+    page-break-inside: avoid;
+  }
+
+  /* Show all rows */
+  .MuiTableBody-root tr {
+    display: table-row !important;
+  }
+
+  /* Adjust cell padding */
+  .MuiTableCell-root {
+    padding: 8px !important;
+  }
+
+  /* Format currency and numbers */
+  .MuiTableCell-root span.amount {
+    font-family: monospace;
+  }
+
+  /* Add footer with page numbers */
+  @page {
+    margin: 2cm;
+  }
+
+  .print-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+  }
+}
