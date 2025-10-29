@@ -25,17 +25,17 @@ app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        
+
         // Check if origin is in allowed list
         if (allowedOrigins.includes(origin)) {
             return callback(null, true);
         }
-        
+
         // For development, allow all origins
         if (process.env.NODE_ENV !== 'production') {
             return callback(null, true);
         }
-        
+
         return callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
@@ -71,26 +71,26 @@ const homeBottomBannerSchema = require('./routes/homeBottomBanner.js');
 const chatRoutes = require('./routes/chat.js');
 const reportsRoutes = require('./routes/reports.js');
 
-app.get('/', (req, res) => {
-    const pkg = require('./package.json');
-    const dbState = mongoose.connection.readyState; // 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
-    const isDbConnected = dbState === 1;
+// app.get('/', (req, res) => {
+//     const pkg = require('./package.json');
+//     const dbState = mongoose.connection.readyState; // 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
+//     const isDbConnected = dbState === 1;
 
-    res.status(200).json({
-        status: 'ok',
-        service: pkg.name || 'backend',
-        version: pkg.version,
-        message: 'Backend is up and responding.',
-        uptimeSeconds: Math.floor(process.uptime()),
-        timestamp: new Date().toISOString(),
-        port: process.env.PORT,
-        environment: process.env.NODE_ENV || 'development',
-        database: {
-            connected: isDbConnected,
-            state: dbState
-        }
-    });
-});
+//     res.status(200).json({
+//         status: 'ok',
+//         service: pkg.name || 'backend',
+//         version: pkg.version,
+//         message: 'Backend is up and responding.',
+//         uptimeSeconds: Math.floor(process.uptime()),
+//         timestamp: new Date().toISOString(),
+//         port: process.env.PORT,
+//         environment: process.env.NODE_ENV || 'development',
+//         database: {
+//             connected: isDbConnected,
+//             state: dbState
+//         }
+//     });
+// });
 
 app.use("/api/user", userRoutes);
 app.use("/uploads", express.static("uploads"));

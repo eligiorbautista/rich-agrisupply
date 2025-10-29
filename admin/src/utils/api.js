@@ -2,6 +2,8 @@ import axios from "axios";
 
 // api helpers used by admin pages
 
+const BASE_URL = 'https://rich-agrisupply-backend.vercel.app';
+
 export const fetchDataFromApi = async (url) => {
     try {
         // Always get the latest token
@@ -11,13 +13,11 @@ export const fetchDataFromApi = async (url) => {
             'Content-Type': 'application/json'
         };
         
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
-        
     // For debugging purposes - show what URL is being called
-    console.log(`API Request to: ${'https://rich-agrisupply-backend.vercel.app' + url}`);
+    console.log(`API Request to: ${BASE_URL + url}`);
         
         // Make the request
-        const { data } = await axios.get('https://rich-agrisupply-backend.vercel.app' + url, { headers })
+        const { data } = await axios.get(BASE_URL + url, { headers })
         
         // For reports endpoints, ensure proper response format
         if (url.includes('/api/reports/')) {
@@ -51,9 +51,8 @@ export const fetchDataFromApi = async (url) => {
 
 
 export const uploadImage = async (url, formData) => {
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
-    const { res } = await axios.post('https://rich-agrisupply-backend.vercel.app' + url , formData)
-    return res;
+    const { data } = await axios.post(BASE_URL + url , formData)
+    return data;
 }
 
 export const postData = async (url, formData) => {
@@ -61,8 +60,7 @@ export const postData = async (url, formData) => {
         // Always get the latest token
         const currentToken = localStorage.getItem("token");
         
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
-    const response = await fetch('https://rich-agrisupply-backend.vercel.app' + url, {
+    const response = await fetch(BASE_URL + url, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${currentToken}`,
@@ -93,8 +91,7 @@ export const editData = async (url, updatedData) => {
         // Always get the latest token
         const currentToken = localStorage.getItem("token");
         
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
-    const response = await axios.put(`${baseUrl}${url}`, updatedData, {
+    const response = await axios.put(`${BASE_URL}${url}`, updatedData, {
             headers: {
                 'Authorization': `Bearer ${currentToken}`,
                 'Content-Type': 'application/json',
@@ -119,8 +116,7 @@ export const deleteData = async (url) => {
             'Content-Type': 'application/json'
         };
         
-const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
-    const response = await axios.delete(`${baseUrl}${url}`, { headers });
+    const response = await axios.delete(`${BASE_URL}${url}`, { headers });
         return response.data;
     } catch (error) {
         console.error('Error in deleteData:', error.response?.data || error.message);
@@ -141,8 +137,7 @@ export const deleteImages = async (url, image) => {
             'Content-Type': 'application/json'
         };
         
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:4000';
-    const response = await axios.delete(`${baseUrl}${url}`, {
+    const response = await axios.delete(`${BASE_URL}${url}`, {
             headers,
             data: image
         });
