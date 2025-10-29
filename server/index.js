@@ -11,14 +11,16 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv/config');
- 
-const allowedOrigins = [ 
+
+const allowedOrigins = [
     'http://localhost:3000',
-    'http://localhost:3001' 
+    'http://localhost:3001',
+    'https://rich-agrisupply-client.vercel.app/',
+    'https://rich-agrisupply-admin.vercel.app/',
 ];
 
 app.use(cors({
-    origin: function (origin, callback) {  
+    origin: function (origin, callback) {
         if (!origin) return callback(null, true);
         if (allowedOrigins.includes(origin)) {
             return callback(null, true);
@@ -93,7 +95,7 @@ mongoose.connect(process.env.CONNECTION_STRING)
     .catch((err) => {
         console.log('MongoDB Connection Error:');
         console.log(err);
-        
+
         // Start the server even if DB connection fails
         console.log('Starting server without database connection...');
         app.listen(process.env.PORT, () => {
