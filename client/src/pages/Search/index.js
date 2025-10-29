@@ -142,7 +142,7 @@ const SearchPage = (props) => {
                       <CircularProgress color="inherit" />
                     </div>
                   ) : (
-                    context?.searchItems?.map((item, index) => {
+                    (Array.isArray(context?.searchItems) ? context.searchItems : []).map((item, index) => {
                       return (
                         <div className="item" key={index}>
                           <Product item={item} />

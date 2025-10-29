@@ -305,8 +305,8 @@ const DetailsPage = (props) => {
                   className="zoomSliderBig"
                   ref={zoomSliderBig}
                 >
-                  {currentProduct?.images?.length !== 0 &&
-                    currentProduct?.images?.map((image, index) => {
+                  {Array.isArray(currentProduct?.images) && currentProduct?.images.length !== 0 &&
+                    currentProduct.images.map((image, index) => {
                       return (
                         <div className="item" key={index}>
                           <InnerImageZoom
@@ -322,8 +322,8 @@ const DetailsPage = (props) => {
               </div>
 
               <Slider {...settings} className="zoomSlider" ref={zoomSlider}>
-                {currentProduct?.images?.length !== 0 &&
-                  currentProduct?.images?.map((image, index) => {
+                {Array.isArray(currentProduct?.images) && currentProduct?.images.length !== 0 &&
+                  currentProduct.images.map((image, index) => {
                     return (
                       <div className="item">
                         <img
@@ -377,7 +377,7 @@ const DetailsPage = (props) => {
 
               <p>{currentProduct?.description}</p>
 
-              {currentProduct?.size?.length !== 0 && (
+              {Array.isArray(currentProduct?.size) && currentProduct?.size.length !== 0 && (
                 <div className="productSize d-flex align-items-center">
                   <span>Size:</span>
                   <ul
@@ -385,7 +385,7 @@ const DetailsPage = (props) => {
                       tabError === true && "error"
                     }`}
                   >
-                    {currentProduct?.size?.map((size, index) => {
+                    {currentProduct.size.map((size, index) => {
                       return (
                         <li className="list-inline-item" key={index}>
                           <a
@@ -401,11 +401,11 @@ const DetailsPage = (props) => {
                 </div>
               )}
 
-              {currentProduct?.productRam?.length !== 0 && (
+              {Array.isArray(currentProduct?.productRam) && currentProduct?.productRam.length !== 0 && (
                 <div className="productSize d-flex align-items-center">
                   <span>RAM:</span>
                   <ul className="list list-inline mb-0 pl-4">
-                    {currentProduct?.productRam?.map((productRam, index) => {
+                    {currentProduct.productRam.map((productRam, index) => {
                       return (
                         <li className="list-inline-item" key={index}>
                           <a
@@ -421,11 +421,11 @@ const DetailsPage = (props) => {
                 </div>
               )}
 
-              {currentProduct?.productWeight?.length !== 0 && (
+              {Array.isArray(currentProduct?.productWeight) && currentProduct?.productWeight.length !== 0 && (
                 <div className="productSize d-flex align-items-center">
                   <span>WEIGHT:</span>
                   <ul className="list list-inline mb-0 pl-4">
-                    {currentProduct?.productWeight?.map(
+                    {currentProduct.productWeight.map(
                       (productWeight, index) => {
                         return (
                           <li className="list-inline-item">
@@ -730,7 +730,7 @@ const DetailsPage = (props) => {
 
             {
               <Slider {...related} className="prodSlider">
-                {relatedProductData.length !== 0 &&
+                {Array.isArray(relatedProductData) && relatedProductData.length !== 0 &&
                   relatedProductData.map((product, index) => {
                     return (
                       <div className="item" key={index}>

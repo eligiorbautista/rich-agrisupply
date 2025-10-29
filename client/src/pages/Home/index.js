@@ -118,7 +118,7 @@ const Home = (props) => {
   return (
     <div style={{ display: "block" }}>
 
-      {homeSlides?.length !== 0 ? (
+      {Array.isArray(homeSlides) && homeSlides.length > 0 ? (
         <SliderBanner data={homeSlides} />
       ) : (
         <div className="container-fluid mt-3">
@@ -139,7 +139,7 @@ const Home = (props) => {
             <h2 className="hd mb-0 mt-0 res-full">Popular Products</h2>
 
             <div className="ml-auto filtes_Products w-75 d-flex align-items-center justify-content-end">
-              {context.categories?.categoryList?.length > 0 && (
+              {Array.isArray(context.categories?.categoryList) && context.categories?.categoryList.length > 0 && (
                 <Tabs
                   value={value}
                   onChange={handleChange}
@@ -147,7 +147,7 @@ const Home = (props) => {
                   scrollButtons="auto"
                   aria-label="scrollable auto tabs example"
                 >
-                  {context.categories?.categoryList?.map((cat) => {
+                  {context.categories?.categoryList.map((cat) => {
                     return (
                       <Tab
                         label={cat?.name}
@@ -161,10 +161,10 @@ const Home = (props) => {
           </div>
 
           <div className={`productRow pb-0 pt-2 ${isLoadingProducts === true && 'loading'}`} ref={productRow}>
-            {filterData?.length !== 0 &&
-              filterData?.filter((item, idx) => idx < 10)?.slice(0)
+            {Array.isArray(filterData) && filterData.length !== 0 &&
+              filterData.filter((item, idx) => idx < 10).slice(0)
                 ?.reverse()
-                ?.map((item, index) => {
+                .map((item, index) => {
                   return (
                     <div className="item" key={index}>
                       <Product item={item} />
@@ -175,7 +175,7 @@ const Home = (props) => {
         </div>
       </section>
 
-      {slideList?.length !== 0 && <Banners data={slideList} />}
+      {Array.isArray(slideList) && slideList.length !== 0 && <Banners data={slideList} />}
 
       <section className='homeProducts homeProductsRow2 pt-0'>
         <div className='container-fluid'>
@@ -187,9 +187,9 @@ const Home = (props) => {
             <div className='col-md-9'>
               <Slider {...settings} className='prodSlider'>
                 {
-                  featuredProducts?.length !== 0 && featuredProducts?.slice(0)
-                    ?.reverse()
-                    ?.map((item, index) => {
+                  Array.isArray(featuredProducts) && featuredProducts.length !== 0 && featuredProducts.slice(0)
+                    .reverse()
+                    .map((item, index) => {
                       return (
                         <div className="item" key={index}>
                           <Product item={item} />
@@ -201,8 +201,8 @@ const Home = (props) => {
             </div>
 
             <div className='col-md-3 pr-5 res-hide'>
-              {homeSideBanners?.length !== 0 &&
-                homeSideBanners?.map((item, index) => {
+              {Array.isArray(homeSideBanners) && homeSideBanners.length !== 0 &&
+                homeSideBanners.map((item, index) => {
                   if (index === 1) {
                     return (
                       <div className="banner mb-3" key={index}>

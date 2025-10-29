@@ -144,7 +144,7 @@ const Listing = (props) => {
         <div className="container-fluid">
 
         {
-          productData?.length!==0 && 
+          Array.isArray(productData?.products) && productData?.products.length !== 0 && 
           <div className="breadcrumb flex-column">
           <h1 className="text-capitalize">{currentCat?.categoryData && currentCat?.categoryData[0]?.name}</h1>
           <ul className="list list-inline mb-0">
@@ -152,15 +152,15 @@ const Listing = (props) => {
               <Link to={"/"}>Home </Link>
             </li>
             <li className="list-inline-item">
-              <Link to={`/products/category/${productData?.products[0]?.length!==0 && productData?.products[0]?.catId}`} className="text-capitalize">
-              {productData?.products[0] && productData?.products[0]?.catName}
+              <Link to={`/products/category/${productData?.products?.[0]?.catId}`} className="text-capitalize">
+              {productData?.products?.[0]?.catName}
               </Link>
             </li>
 
 
             <li className="list-inline-item">
-              <Link to={`/products/subCat/${productData?.products[0]?.length!==0 && productData?.products[0]?.subCatId}`} className="text-capitalize">
-              {productData?.products[0] && productData?.products[0]?.subCatName}
+              <Link to={`/products/subCat/${productData?.products?.[0]?.subCatId}`} className="text-capitalize">
+              {productData?.products?.[0]?.subCatName}
               </Link>
             </li>
 
@@ -192,7 +192,7 @@ const Listing = (props) => {
                       <CircularProgress color="inherit" />
                     </div>
                   ) : (
-                    productData?.products?.map((item, index) => {
+                    (Array.isArray(productData?.products) ? productData.products : [])?.map((item, index) => {
                       return (
                         <div className="item" key={index}>
                           <Product item={item} />

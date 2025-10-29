@@ -70,8 +70,8 @@ const Orders = () => {
               </thead>
 
               <tbody>
-                {orders?.length !== 0 &&
-                  orders?.map((order, index) => {
+                {Array.isArray(orders) && orders.length !== 0 &&
+                  orders.map((order, index) => {
                     return (
                       <>
                         <tr key={index}>
@@ -142,8 +142,8 @@ const Orders = () => {
             </thead>
 
             <tbody>
-              {products?.length !== 0 &&
-                products?.map((item, index) => {
+              {Array.isArray(products) && products.length !== 0 &&
+                products.map((item, index) => {
                   return (
                     <tr>
                       <td>{item?.productId}</td>

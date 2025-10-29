@@ -139,8 +139,8 @@ const Cart = () => {
                         </thead>
 
                         <tbody>
-                          {cartData?.length !== 0 &&
-                            cartData?.map((item, index) => {
+                          {Array.isArray(cartData) && cartData.length !== 0 &&
+                            cartData.map((item, index) => {
                               return (
                                 <tr key={index}>
                                   <td width={"50%"}>
@@ -245,9 +245,9 @@ const Cart = () => {
                     <h5 className="mb-0 text-light">Subtotal</h5>
                     <h3 className="ml-auto mb-0 font-weight-bold">
                       <span className="text-g">
-                        {(context.cartItems?.length !== 0
+                        {(Array.isArray(context.cartItems) && context.cartItems.length !== 0
                           ? context.cartItems
-                              ?.map(
+                              .map(
                                 (item) => parseInt(item.price) * item.quantity
                               )
                               .reduce((total, value) => total + value, 0)
@@ -266,9 +266,9 @@ const Cart = () => {
                     <h5 className="mb-0 text-light">Total</h5>
                     <h3 className="ml-auto mb-0 font-weight-bold">
                       <span className="text-g">
-                        {(context.cartItems?.length !== 0
+                        {(Array.isArray(context.cartItems) && context.cartItems.length !== 0
                           ? context.cartItems
-                              ?.map(
+                              .map(
                                 (item) => parseInt(item.price) * item.quantity
                               )
                               .reduce((total, value) => total + value, 0)

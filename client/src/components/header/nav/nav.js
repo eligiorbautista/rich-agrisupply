@@ -87,7 +87,7 @@ const Nav = (props) => {
                 }`}
               >
                 <ul>
-                  {navData.length !== 0 && navData?.map((item, index) => {
+                  {Array.isArray(navData) && navData.length !== 0 && navData.map((item, index) => {
                     return (
                       <li key={index}>
                         <Link to={`/products/category/${item?._id}`}>
@@ -133,7 +133,7 @@ const Nav = (props) => {
                       </Link>
                     </div>
 
-                    {props?.countryData.length !== 0 && (
+                    {Array.isArray(props?.countryData) && props?.countryData.length !== 0 && (
                       <div className="pl-3 w-100 mb-3">
                         <div className="countryWrapper w-100">
                           <Select
@@ -161,7 +161,7 @@ const Nav = (props) => {
                     </li>
                   )}
 
-                  {navData.length !== 0 &&
+                  {Array.isArray(navData) && navData.length !== 0 &&
                     navData
                       .filter((item, idx) => idx < 6)
                       .map((item, index) => {
@@ -235,7 +235,7 @@ const Nav = (props) => {
                         }`}
                       >
                         <div className="row">
-                          {navData?.length !== 0 &&
+                          {Array.isArray(navData) && navData.length !== 0 &&
                             navData
                               ?.filter((item, idx) => idx < 5)
                               .map((item, index) => {

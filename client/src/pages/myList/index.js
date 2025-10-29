@@ -84,7 +84,7 @@ const Cart = () => {
                   </div>
                 </div>
 
-                {context?.myListData?.length !== 0 ? (
+                {Array.isArray(context?.myListData) && context?.myListData.length !== 0 ? (
                   <>
                     <div className="cartWrapper mt-4">
                       <div className="table-responsive">
@@ -98,8 +98,8 @@ const Cart = () => {
                           </thead>
 
                           <tbody>
-                            {context?.myListData?.length !== 0 &&
-                              context?.myListData?.map((item, index) => {
+                            {Array.isArray(context?.myListData) && context?.myListData.length !== 0 &&
+                              context?.myListData.map((item, index) => {
                                 return (
                                   <tr key={index}>
                                     <td width={"70%"}>

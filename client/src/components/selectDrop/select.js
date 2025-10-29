@@ -19,7 +19,7 @@ const Select = ({data,placeholder, icon, view, selectedSelectBoxItem}) => {
     }
 
     useEffect(()=>{
-        if(data.length!==0){
+        if(Array.isArray(data) && data.length!==0){
             setListData(data);
             setListData2(data);
         }
@@ -67,7 +67,7 @@ const Select = ({data,placeholder, icon, view, selectedSelectBoxItem}) => {
                         <ul className='searchResults'>
                         <li key={0} onClick={() => closeSelect(0, placeholder, '')} className={`${selectedIndex === 0 ? 'active' : ''}`}>{placeholder}</li> 
                         {
-                            
+                            Array.isArray(listData) &&
                             listData.map((item,index)=>{
                               console.log(item)
                                 return(

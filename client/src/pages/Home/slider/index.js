@@ -31,8 +31,8 @@ const HomeSlider = (props) => {
     <section className="homeSlider">
       <div className="container-fluid position-relative">
         <Slider {...settings} className="home_slider_Main">
-          {props?.data.length !== 0 &&
-            props?.data?.map((item, index) => {
+          {Array.isArray(props?.data) && props?.data.length > 0 &&
+            props?.data.map((item, index) => {
               return (
                 <div className="item" key={index}>
                 <img src={item?.images[0]} className="w-100"/>
