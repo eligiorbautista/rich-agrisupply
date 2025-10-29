@@ -56,6 +56,10 @@ const homeBottomBannerSchema = require('./routes/homeBottomBanner.js');
 const chatRoutes = require('./routes/chat.js');
 const reportsRoutes = require('./routes/reports.js');
 
+app.get('/', (req, res) => {
+    res.send('This backend is running perfectly fine.');
+});
+
 app.use("/api/user", userRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use(`/api/category`, categoryRoutes);

@@ -12,7 +12,7 @@ const params={
 
 export const fetchDataFromApi = async (url) => {
     try {
-        const { data } = await axios.get(process.env.REACT_APP_BASE_URL + url,params)
+        const { data } = await axios.get(process.env.BACKEND_BASE_URL + url,params)
         return data;
     } catch (error) {
         console.log(error);
@@ -23,7 +23,7 @@ export const fetchDataFromApi = async (url) => {
 
 export const uploadImage = async (url, formData) => {
     try {
-        const { data } = await axios.post(process.env.REACT_APP_BASE_URL + url, formData, {
+        const { data } = await axios.post(process.env.BACKEND_BASE_URL + url, formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data', // Important for file uploads
@@ -39,7 +39,7 @@ export const uploadImage = async (url, formData) => {
 export const postData = async (url, formData) => {
 
     try {
-        const response = await fetch(process.env.REACT_APP_BASE_URL + url, {
+        const response = await fetch(process.env.BACKEND_BASE_URL + url, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`, // Include your API key in the Authorization header
@@ -117,7 +117,7 @@ export const resendOtp = async (url) => {
     try {
         const token = localStorage.getItem("token");
 
-        const { data } = await axios.post(process.env.REACT_APP_BASE_URL + url, {}, {
+        const { data } = await axios.post(process.env.BACKEND_BASE_URL + url, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
