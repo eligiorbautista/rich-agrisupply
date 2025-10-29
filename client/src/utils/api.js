@@ -1,21 +1,22 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
+// Determine backend base URL: prefer env, fallback to production backend
+const BASE_URL = (
+    "https://rich-agrisupply-backend.vercel.app"
+).replace(/\/$/, "");
 
-// Prefer CRA-style env var; fall back for legacy name; default to empty string
-const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.REACT_APP_BASE_URL || "").replace(/\/$/, "");
-
-const params = {
-    headers: {
-        'Authorization': `Bearer ${token}`,
+const buildAuthHeaders = () => {
+    const token = localStorage.getItem("token");
+    return {
+        'Authorization': token ? `Bearer ${token}` : undefined,
         'Content-Type': 'application/json',
-    },
-}
+    };
+};
 
 export const fetchDataFromApi = async (url) => {
     try {
-        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
-        const { data } = await axios.get(endpoint, params)
+        const endpoint = `${BASE_URL}${url}`;
+        const { data } = await axios.get(endpoint, { headers: buildAuthHeaders() });
         return data;
     } catch (error) {
         console.log(error);
@@ -23,80 +24,62 @@ export const fetchDataFromApi = async (url) => {
     }
 }
 
-
 export const uploadImage = async (url, formData) => {
     try {
-        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
+        const endpoint = `${BASE_URL}${url}`;
         const { data } = await axios.post(endpoint, formData, {
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data', // Important for file uploads
+                ...buildAuthHeaders(),
+                'Content-Type': 'multipart/form-data',
             }
         });
         return data;
     } catch (error) {
         console.error('Upload error:', error);
-        throw error; // Rethrow to handle in the component
+        throw error;
     }
 }
 
 export const postData = async (url, formData) => {
-
     try {
-        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
+        const endpoint = `${BASE_URL}${url}`;
         const response = await fetch(endpoint, {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`, // Include your API key in the Authorization header
-                'Content-Type': 'application/json', // Adjust the content type as needed
-              },
-           
+            headers: buildAuthHeaders(),
             body: JSON.stringify(formData)
         });
 
-
-      
-
-        // First check if response is ok before trying to parse JSON
         if (response.ok) {
             const data = await response.json();
             return data;
         } else {
-            // For error responses, first try to get JSON error message
             try {
                 const errorData = await response.json();
                 return { success: false, message: errorData.message || 'Request failed' };
             } catch (e) {
-                // If response is not JSON, return generic error
-                return { 
-                    success: false, 
+                return {
+                    success: false,
                     message: `Request failed with status: ${response.status}`
                 };
             }
         }
     } catch (error) {
         console.error('Error:', error);
-        return { 
-            success: false, 
+        return {
+            success: false,
             message: error.message || 'Network error occurred'
         };
     }
-
-
 }
-
 
 export const editData = async (url, updatedData) => {
     try {
-        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
+        const endpoint = `${BASE_URL}${url}`;
         const response = await axios.put(
             endpoint,
             updatedData,
             {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                }
+                headers: buildAuthHeaders()
             }
         );
         return response.data;
@@ -106,32 +89,24 @@ export const editData = async (url, updatedData) => {
     }
 }
 
-export const deleteData = async (url ) => {
-    const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
-    const { res } = await axios.delete(endpoint, params)
-    return res;
+export const deleteData = async (url) => {
+    const endpoint = `${BASE_URL}${url}`;
+    const { data } = await axios.delete(endpoint, { headers: buildAuthHeaders() });
+    return data;
 }
 
-
-export const deleteImages = async (url,image ) => {
-    const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
-    const { res } = await axios.delete(endpoint, image);
-    return res;
+export const deleteImages = async (url, image) => {
+    const endpoint = `${BASE_URL}${url}`;
+    const { data } = await axios.delete(endpoint, { headers: buildAuthHeaders(), data: image });
+    return data;
 }
-
 
 // Resend OTP
 export const resendOtp = async (url) => {
     try {
-        const token = localStorage.getItem("token");
-
-        const endpoint = `$https://rich-agrisupply-backend.vercel.app${url}`;
+        const endpoint = `${BASE_URL}${url}`;
         const { data } = await axios.post(endpoint, {}, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            // withCredentials: true
+            headers: buildAuthHeaders(),
         });
 
         return data;
