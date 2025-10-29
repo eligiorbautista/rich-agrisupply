@@ -74,7 +74,7 @@ const Rider = () => {
     setLoading(true);
     setMessage(null);
     try {
-      const baseUrl = process.env.REACT_APP_BASE_URL || '';
+      const baseUrl = process.env.BACKEND_BASE_URL || '';
       const url = `${baseUrl}/api/orders/scan/${useToken}`;
       const resp = await fetch(url, {
         method: 'POST',

@@ -38,7 +38,7 @@ const RiderDashboard = () => {
   const [actionLoading, setActionLoading] = useState({});
   const [confirm, setConfirm] = useState({ open: false, order: null, action: null });
 
-  const baseUrl = process.env.REACT_APP_BASE_URL || '';
+  const baseUrl = process.env.BACKEND_BASE_URL || '';
 
   const fetchOrders = async () => {
     setLoading(true);

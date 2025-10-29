@@ -1,18 +1,21 @@
 import axios from "axios";
 
-const token=localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
-const params={
+// Prefer CRA-style env var; fall back for legacy name; default to empty string
+const API_BASE_URL = (process.env.BACKEND_BASE_URL || process.env.BACKEND_BASE_URL || "").replace(/\/$/, "");
+
+const params = {
     headers: {
-        'Authorization': `Bearer ${token}`, // Include your API key in the Authorization header
-        'Content-Type': 'application/json', // Adjust the content type as needed
-      },
-
-} 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    },
+}
 
 export const fetchDataFromApi = async (url) => {
     try {
-        const { data } = await axios.get(process.env.BACKEND_BASE_URL + url,params)
+        const endpoint = `${API_BASE_URL}${url}`;
+        const { data } = await axios.get(endpoint, params)
         return data;
     } catch (error) {
         console.log(error);
@@ -23,7 +26,8 @@ export const fetchDataFromApi = async (url) => {
 
 export const uploadImage = async (url, formData) => {
     try {
-        const { data } = await axios.post(process.env.BACKEND_BASE_URL + url, formData, {
+        const endpoint = `${API_BASE_URL}${url}`;
+        const { data } = await axios.post(endpoint, formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data', // Important for file uploads
@@ -39,7 +43,8 @@ export const uploadImage = async (url, formData) => {
 export const postData = async (url, formData) => {
 
     try {
-        const response = await fetch(process.env.BACKEND_BASE_URL + url, {
+        const endpoint = `${API_BASE_URL}${url}`;
+        const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`, // Include your API key in the Authorization header
@@ -83,8 +88,9 @@ export const postData = async (url, formData) => {
 
 export const editData = async (url, updatedData) => {
     try {
+        const endpoint = `${API_BASE_URL}${url}`;
         const response = await axios.put(
-            `${process.env.REACT_APP_BASE_URL}${url}`,
+            endpoint,
             updatedData,
             {
                 headers: {
@@ -101,13 +107,15 @@ export const editData = async (url, updatedData) => {
 }
 
 export const deleteData = async (url ) => {
-    const { res } = await axios.delete(`${process.env.REACT_APP_BASE_URL}${url}`,params)
+    const endpoint = `${API_BASE_URL}${url}`;
+    const { res } = await axios.delete(endpoint, params)
     return res;
 }
 
 
 export const deleteImages = async (url,image ) => {
-    const { res } = await axios.delete(`${process.env.REACT_APP_BASE_URL}${url}`,image);
+    const endpoint = `${API_BASE_URL}${url}`;
+    const { res } = await axios.delete(endpoint, image);
     return res;
 }
 
@@ -117,7 +125,8 @@ export const resendOtp = async (url) => {
     try {
         const token = localStorage.getItem("token");
 
-        const { data } = await axios.post(process.env.BACKEND_BASE_URL + url, {}, {
+        const endpoint = `${API_BASE_URL}${url}`;
+        const { data } = await axios.post(endpoint, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',

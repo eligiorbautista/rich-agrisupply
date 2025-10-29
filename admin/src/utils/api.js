@@ -11,7 +11,7 @@ export const fetchDataFromApi = async (url) => {
             'Content-Type': 'application/json'
         };
         
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
+    const baseUrl = process.env.BACKEND_BASE_URL || 'http://localhost:8080';
         
     // For debugging purposes - show what URL is being called
     console.log(`API Request to: ${baseUrl + url}`);
@@ -51,7 +51,7 @@ export const fetchDataFromApi = async (url) => {
 
 
 export const uploadImage = async (url, formData) => {
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
+    const baseUrl = process.env.BACKEND_BASE_URL || 'http://localhost:8080';
     const { res } = await axios.post(baseUrl + url , formData)
     return res;
 }
@@ -61,7 +61,7 @@ export const postData = async (url, formData) => {
         // Always get the latest token
         const currentToken = localStorage.getItem("token");
         
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
+    const baseUrl = process.env.BACKEND_BASE_URL || 'http://localhost:8080';
     const response = await fetch(baseUrl + url, {
             method: 'POST',
             headers: {
@@ -93,7 +93,7 @@ export const editData = async (url, updatedData) => {
         // Always get the latest token
         const currentToken = localStorage.getItem("token");
         
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
+    const baseUrl = process.env.BACKEND_BASE_URL || 'http://localhost:8080';
     const response = await axios.put(`${baseUrl}${url}`, updatedData, {
             headers: {
                 'Authorization': `Bearer ${currentToken}`,
@@ -119,7 +119,7 @@ export const deleteData = async (url) => {
             'Content-Type': 'application/json'
         };
         
-const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
+const baseUrl = process.env.BACKEND_BASE_URL || 'http://localhost:8080';
     const response = await axios.delete(`${baseUrl}${url}`, { headers });
         return response.data;
     } catch (error) {
@@ -141,7 +141,7 @@ export const deleteImages = async (url, image) => {
             'Content-Type': 'application/json'
         };
         
-    const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:4000';
+    const baseUrl = process.env.BACKEND_BASE_URL || 'http://localhost:4000';
     const response = await axios.delete(`${baseUrl}${url}`, {
             headers,
             data: image
