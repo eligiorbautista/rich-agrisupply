@@ -3,7 +3,7 @@ import axios from "axios";
 const token = localStorage.getItem("token");
 
 // Prefer CRA-style env var; fall back for legacy name; default to empty string
-const API_BASE_URL = (process.env.BACKEND_BASE_URL || process.env.BACKEND_BASE_URL || "").replace(/\/$/, "");
+const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.REACT_APP_BASE_URL || "").replace(/\/$/, "");
 
 const params = {
     headers: {
